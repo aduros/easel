@@ -1,4 +1,4 @@
-package tinderbox.util;
+package easel.util;
 
 class Promise<T>
 {

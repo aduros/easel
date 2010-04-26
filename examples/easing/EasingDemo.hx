@@ -29,7 +29,8 @@ class EasingDemo extends Scene
 
         var options = new Hash();
         options.set("Linear", Tween.LINEAR);
-        options.set("Quad EaseIn", Tween.QUAD);
+        options.set("Quad EaseIn", Tween.QUAD_IN);
+        options.set("Expo EaseIn", Tween.EXPO_IN);
 
         var select :Select = cast Lib.document.getElementById("easings");
         for (name in options.keys()) {

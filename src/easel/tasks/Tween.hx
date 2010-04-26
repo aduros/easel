@@ -9,9 +9,13 @@ class Tween
         return a + (b-a)*(t/d);
     };
 
-    public static var QUAD :EasingFunction = cast function (t :Float, a, b, d :Float) {
+    public static var QUAD_IN :EasingFunction = cast function (t :Float, a, b, d) {
         t /= d;
         return (b-a)*t*t + a;
+    };
+
+    public static var EXPO_IN :EasingFunction = cast function (t, a, b, d) {
+        return (b-a) * Math.pow( 2, 10 * (t/d - 1) ) + a;
     };
 
     private function new (seconds :Float, easing :EasingFunction)

@@ -19,6 +19,16 @@ class MoveTo extends Tween
         return new MoveTo(sprite, toX, toY, seconds, Tween.LINEAR);
     }
 
+    public static inline function quadIn (sprite :Sprite, toX :Float, toY :Float, seconds :Float)
+    {
+        return new MoveTo(sprite, toX, toY, seconds, Tween.QUAD_IN);
+    }
+
+    public static inline function expoIn (sprite :Sprite, toX :Float, toY :Float, seconds :Float)
+    {
+        return new MoveTo(sprite, toX, toY, seconds, Tween.EXPO_IN);
+    }
+
     override public function begin ()
     {
         _fromX = _sprite.x;

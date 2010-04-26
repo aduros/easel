@@ -6,9 +6,8 @@ default:
 	haxe -main tetris.Main -js ${DEMO}.js ${HAXE_FLAGS}
 
 build-release:
-	cp -r www static ${DIST_DIR}
-	haxe -main Test -js ${DIST_DIR}.max.js -cp ../../src -cp src
-	java -jar lib/compiler.jar --output_wrapper "/* Built with Easel */%output%" --js ${DIST_DIR}/static/client.max.js --js_output_file ${DIST_DIR}/static/client.js
+	haxe -main tetris.Main -js ${DEMO}.max.js -cp ../../src -cp src
+	java -jar lib/compiler.jar --output_wrapper "/* Built with Easel */%output%" --js ${DEMO}.max.js --js_output_file ${DEMO}.js
 
 clean:
 	rm -f ${DEMO}.js
