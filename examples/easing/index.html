@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Easing demo :: Easel</title>
+<style>
+#demo {
+    position: relative;
+}
+#controls {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+</style>
+</head>
+<body>
+
+<div id="demo">
+<canvas id="screen" width="320" height="416">Canvas not supported</canvas>
+<div id="controls">
+<select id="easings"></select>
+<label><input type="checkbox" id="jumpy">Jumpy</label>
+</div>
+</div>
+
+<div>FPS: <span id="easel:fps"></span></div>
+<div>Sprites: <span id="easel:sprites"></span></div>
+<div>Tasks: <span id="easel:tasks"></span></div>
+<div><label><input type="checkbox" id="easel:disableRendering">Disable rendering</label></div>
+<div><label><input type="checkbox" id="easel:disableUpdates">Disable updates</label></div>
+<div id="haxe:trace"></div>
+
+<p><a href="EasingDemo.hx">View haXe source</a></p>
+<script src="EasingDemo.js"></script>
+
+</body>
+</html>

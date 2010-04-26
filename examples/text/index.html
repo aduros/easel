@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Text demo :: Easel</title>
+<style>
+@font-face {
+    font-family: customfont;
+    src: url("segao.ttf");
+}
+#demo {
+    position: relative;
+}
+#controls {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: small;
+    font-family: sans-serif;
+}
+</style>
+</head>
+<body>
+
+<div id="demo">
+<canvas id="screen" width="320" height="416">Canvas not supported</canvas>
+<div id="controls">
+<div><label>Font <input type="text" id="font" value="36px customfont, times"></label></div>
+<div><label>Align <select id="align">
+  <option>left</option>
+  <option selected="selected">center</option>
+  <option>right</option>
+</select></label></div>
+<div><label>Baseline <select id="baseline">
+  <option>top</option>
+  <option>hanging</option>
+  <option>middle</option>
+  <option selected="selected">alphabetic</option>
+  <option>ideographic</option>
+  <option>bottom</option>
+</select></label></div>
+<div><label><input type="checkbox" id="enableShadow">Drop shadow</label></div>
+<div><label><input type="checkbox" id="cacheAsBitmap">cacheAsBitmap</label></div>
+</div>
+</div>
+
+<div>FPS: <span id="easel:fps"></span></div>
+<div>Sprites: <span id="easel:sprites"></span></div>
+<div>Tasks: <span id="easel:tasks"></span></div>
+<div><label><input type="checkbox" id="easel:disableRendering">Disable rendering</label></div>
+<div><label><input type="checkbox" id="easel:disableUpdates">Disable updates</label></div>
+<div id="haxe:trace"></div>
+
+<p><a href="TextDemo.hx">View haXe source</a></p>
+<script src="TextDemo.js"></script>
+
+</body>
+</html>
