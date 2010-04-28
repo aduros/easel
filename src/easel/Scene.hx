@@ -4,6 +4,7 @@ import js.Dom;
 
 import easel.display.Sprite;
 import easel.display.Group;
+import easel.display.Canvas;
 import easel.display.Context2d;
 import easel.tasks.Task;
 import easel.util.Signal;
@@ -19,8 +20,8 @@ class Scene
     public var onShow :Signal<Void>;
     public var onHide :Signal<Void>;
 
-    public var width (getWidth, never) :Float;
-    public var height (getHeight, never) :Float;
+    public var width (getWidth, never) :Int;
+    public var height (getHeight, never) :Int;
 
     public function new ()
     {
@@ -72,7 +73,6 @@ class Scene
         for (entity in _entities) {
             entity.destroy();
         }
-        trace("Unloading scene");
         _root = null;
         _entities = null;
         director = null;
@@ -110,7 +110,21 @@ class Scene
 
     public inline function getHeight ()
     {
-        return director.width;
+        return director.height;
+    }
+
+    public function snapshot () :Canvas
+    {
+        var buffer :Canvas = cast js.Lib.document.createElement("canvas");
+        buffer.width = width;
+        buffer.height = height;
+        render(buffer.getContext("2d"));
+        return buffer;
+    }
+
+    public inline function isShowing () :Bool
+    {
+        return (untyped director._current == this);
     }
 
     private var _root :Group;

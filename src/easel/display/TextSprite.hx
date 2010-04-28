@@ -68,48 +68,33 @@ class TextSprite extends Sprite
         this.font = "12px serif";
     }
 
-    override public function packBounds (?ctx :Context2d)
+    override public function packBounds ()
     {
-        if (ctx != null) {
-//            ctx.fillStyle = fillStyle;
-//            if (align != null) {
-//                ctx.textAlign = align;
-//            }
-//            if (baseline != null) {
-//                ctx.textBaseline = baseline;
-//            }
-            ctx.save();
-            ctx.font = font;
-            boundingBox[2] = ctx.measureText(text).width;
-            ctx.restore();
+        var ctx = ScratchCanvas.ctx;
+        ScratchCanvas.canvas = null;
+        ctx.font = font;
+        boundingBox[2] = ctx.measureText(text).width;
 
-            if (maxWidth != null && maxWidth > boundingBox[2]) {
-                boundingBox[2] = maxWidth;
-            }
-
-            boundingBox[3] = 50; // No metrics.height, unngh;
-
-            switch (align) {
-                case "center": boundingBox[0] = -boundingBox[2]/2;
-                case "right": boundingBox[0] = -boundingBox[2];
-                default: boundingBox[0] = 0; // left
-            }
-            switch (baseline) {
-                case "top": boundingBox[1] = 0;
-                case "hanging": boundingBox[1] = 0;
-                case "middle": boundingBox[1] = -boundingBox[3]/2;
-                default: boundingBox[1] = -boundingBox[3]; // bottom
-            }
-
-            trace(boundingBox);
-
-//            if (align == "right") {
-//                boundingBox[0] = -metrics.width;
-//            } else if (align == "center") {
-//                boundingBox[0] = -metrics.width/2;
-//            }
+        if (maxWidth != null && maxWidth > boundingBox[2]) {
+            boundingBox[2] = maxWidth;
         }
-        super.packBounds(ctx);
+
+        boundingBox[3] = 50; // No metrics.height, unngh;
+
+        switch (align) {
+            case "center": boundingBox[0] = -boundingBox[2]/2;
+            case "right": boundingBox[0] = -boundingBox[2];
+            default: boundingBox[0] = 0; // left
+        }
+        switch (baseline) {
+            case "top": boundingBox[1] = 0;
+            case "hanging": boundingBox[1] = 0;
+            case "middle": boundingBox[1] = -boundingBox[3]/2;
+            default: boundingBox[1] = -boundingBox[3]; // bottom
+        }
+
+        trace(boundingBox);
+        super.packBounds();
     }
 
     override public function draw (ctx :Context2d)

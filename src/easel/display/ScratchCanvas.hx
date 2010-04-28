@@ -6,14 +6,16 @@ package easel.display;
  */
 class ScratchCanvas
 {
-    // This context could be in any state, you don't have to clean up changes
-    public static var ctx :Context2d;
-
-    private static function __init__ ()
-    {
-        var canvas = untyped document.createElement("canvas");
+    // Turns out we also need to keep a reference to the canvas element and not just the context.
+    // In firefox the reference a ctx has to its canvas is weak and won't prevent
+    // garbage collection!
+    public static var canvas :Canvas = function () {
+        var canvas :Canvas = cast js.Lib.document.createElement("canvas");
         canvas.width = 0;
         canvas.height = 0;
-        ctx = canvas.getContext("2d");
-    }
+        return canvas;
+    }();
+
+    // This context could be in any messy state, you don't have to clean up with save/restore
+    public static var ctx :Context2d = canvas.getContext("2d");
 }

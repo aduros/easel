@@ -22,15 +22,16 @@ class Div extends Entity
     {
         super.activate(scene);
         scene.director.ctx.canvas.parentNode.appendChild(_element);
-//        var layer = Lib.document.getElementById("layer");
-//        layer.appendChild(_element);
 
         var style = _element.style;
+        if (!scene.isShowing()) {
+            style.display = "none";
+        }
         registerListener(scene.onHide, function (_) {
             style.display = "none";
         });
         registerListener(scene.onShow, function (_) {
-            style.display = "inherit";
+            style.display = "";
         });
     }
 

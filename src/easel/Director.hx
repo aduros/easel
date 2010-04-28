@@ -4,6 +4,7 @@ import js.Dom;
 
 import easel.display.Canvas;
 import easel.display.Context2d;
+import easel.transitions.Transition;
 import easel.util.Signal;
 
 class Director
@@ -52,41 +53,74 @@ class Director
         _current.onKeyDown.emit(event);
     }
 
-    public function replaceScene (scene :Scene)
+    public function replaceScene (next :Scene, ?transition :Transition)
     {
-        var removed = _scenes.pop();
-        if (removed != null) {
-            removed.onHide.emit(null);
-            removed.unload();
+        var prev = _scenes.pop();
+
+        _scenes.push(next);
+        _current = next;
+
+        if (prev != null) {
+            prev.onHide.emit(null);
+
+            if (transition != null) {
+                transition.fromScene = prev;
+                transition.toScene = next;
+                _current = transition;
+                next.director = this;
+                next.load();
+            }
         }
 
-        _scenes.push(scene);
-        _current = scene;
-        scene.director = this;
-        scene.load();
-        scene.onShow.emit(null);
+        _current.director = this;
+        _current.load();
+
+        if (prev != null) {
+            prev.unload();
+        }
+        _current.onShow.emit(null);
     }
 
-    public function pushScene (scene :Scene)
+    public function pushScene (next :Scene, ?transition :Transition)
     {
+        var prev = _current;
         _current.onHide.emit(null);
 
-        _scenes.push(scene);
-        _current = scene;
-        scene.director = this;
-        scene.load();
-        scene.onShow.emit(null);
+        _scenes.push(next);
+        if (transition != null) {
+            transition.fromScene = prev;
+            transition.toScene = next;
+            _current = transition;
+            next.director = this;
+            next.load();
+        } else {
+            _current = next;
+        }
+
+        _current.director = this;
+        _current.load();
+        _current.onShow.emit(null);
     }
 
-    public function popScene ()
+    public function popScene (?transition :Transition)
     {
         // Never pop the last scene
         if (_scenes.length > 1) {
             var prev = _scenes.pop();
-
-            _current = _scenes[_scenes.length-1];
+            var next = _scenes[_scenes.length-1];
 
             prev.onHide.emit(null);
+
+            if (transition != null) {
+                _current = transition;
+                transition.fromScene = prev;
+                transition.toScene = next;
+                transition.director = this;
+                transition.load();
+            } else {
+                _current = next;
+            }
+
             prev.unload();
 
             _current.onShow.emit(null);

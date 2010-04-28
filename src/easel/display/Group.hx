@@ -88,7 +88,7 @@ class Group extends Sprite
         }
     }
 
-    override public function packBounds (?ctx :Context2d)
+    override public function packBounds ()
     {
         var bounds :Rect = [0.0, 0.0, 0.0, 0.0];
         for (child in _children) {
@@ -101,7 +101,7 @@ class Group extends Sprite
         }
         boundingBox = bounds;
         trace("Packed: " + bounds);
-        super.packBounds(ctx);
+        super.packBounds();
     }
 
     public var _children :Array<Sprite>;

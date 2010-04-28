@@ -231,7 +231,7 @@ class Sprite extends Entity
 
         var ctx = _backBuffer.getContext("2d");
 
-        packBounds(ctx);
+        packBounds();
 //        _backBuffer.setAttribute("width", untyped Math.ceil(boundingBox[2]));//-boundingBox[0]);
 //        _backBuffer.setAttribute("height", untyped Math.ceil(boundingBox[3]));////-boundingBox[1]);
 
@@ -322,7 +322,7 @@ class Sprite extends Entity
     {
     }
 
-    public function packBounds (?ctx :Context2d)
+    public function packBounds ()
     {
         if (shadowColor != null) {
             boundingBox[0] = Math.min(boundingBox[0]+shadowOffsetX-5, boundingBox[0]);

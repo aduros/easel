@@ -12,21 +12,21 @@ class ImageSprite extends Sprite
     public var frameWidth (default, null) :Float;
     public var frameHeight (default, null) :Float;
 
-    public function new (image :Image, ?frames = 1)
+    public function new (image :Dynamic, ?frames = 1)
     {
         super();
         boundingBox = [0.0, 0.0, image.width/frames, image.height];
         _image = image;
         _frames = frames;
     }
-
-    public static function fromCanvas (source :Canvas, sx :Float, sy :Float, sw :Float, sh :Float)
-    {
-        var canvas :Canvas = cast js.Lib.document.createElement("canvas");
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(source, sx, sy, sw, sh, 0, 0, sw, sh);
-        return new ImageSprite(untyped canvas);
-    }
+//
+//    public static function fromCanvas (source :Canvas, sx :Float, sy :Float, sw :Float, sh :Float)
+//    {
+//        var canvas :Canvas = cast js.Lib.document.createElement("canvas");
+//        var ctx = canvas.getContext("2d");
+//        ctx.drawImage(source, sx, sy, sw, sh, 0, 0, sw, sh);
+//        return new ImageSprite(untyped canvas);
+//    }
 
     public inline function setFrame (frame :Int)
     {
@@ -50,6 +50,6 @@ class ImageSprite extends Sprite
         }
     }
 
-    private var _image :Image;
+    private var _image :Dynamic;
     private var _frames :Int;
 }
