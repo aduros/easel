@@ -107,10 +107,6 @@ class ParticleSprite extends Sprite
         _sh = sh;
     }
 
-    override public function packBounds (?ctx)
-    {
-    }
-
     override public function draw (ctx :Context2d)
     {
         ctx.drawImage(_source, _sx, _sy, _sw, _sh, 0, 0, _sw, _sh);
