@@ -30,12 +30,12 @@ class PlayingScene extends Scene
     {
         var overlay = js.Lib.document.getElementById("overlay");
 
-        var button = new Div("pause button");
-        var self = this;
-        button.onClick.add(function (_) {
-            self.director.pushScene(new PauseScene());
-        });
-        add(button);
+//        var button = new Div("pause button");
+//        var self = this;
+//        button.onClick.add(function (_) {
+//            self.director.pushScene(new PauseScene());
+//        });
+//        add(button);
 
         _score = new Div("score");
         add(_score);
