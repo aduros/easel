@@ -45,9 +45,3 @@ class Main
 //        });
     }
 }
-
-enum Color
-{
-    Pink;
-    RGB(r :Int, g :Int, b :Int);
-}
