@@ -147,7 +147,7 @@ class Director
 
         replaceScene(firstScene);
 
-#if debug
+#if debug // Profiling displays available only in debug builds
         var disableRenderingCtrl :Checkbox =
             cast js.Lib.document.getElementById("easel:disableRendering");
         if (disableRenderingCtrl != null) {
@@ -166,39 +166,41 @@ class Director
 
         var taskCount = js.Lib.document.getElementById("easel:tasks");
 
+        // A fake context for when rendering is disabled, for profiling
         var dummyContext :Context2d = null;
         dummyContext = cast {
             canvas: {
                 width: ctx.canvas.width,
                 height: ctx.canvas.height,
-                getContext: function (type) return dummyContext
+                getContext: function () return dummyContext
             },
             save: function () {},
             restore: function () {},
 
-            // transformations (default transform is the identity matrix)
-            scale: function( x : Float, y : Float ) {},
-            rotate: function( r : Float ) {},
-            translate: function( x : Float, y : Float ) {},
-            transform: function( m11 : Float, m12 : Float, m21 : Float, m22 : Float, dx : Float, dy : Float ) {},
-            setTransform: function( m11 : Float, m12 : Float, m21 : Float, m22 : Float, dx : Float, dy : Float ) {},
+            scale: function () {},
+            rotate: function () {},
+            translate: function () {},
+            transform: function () {},
+            setTransform: function () {},
 
-            globalAlpha: 1,
-            globalCompositeOperation: "todo",
-            strokeStyle: null,
-            fillStyle: null,
+            globalAlpha: 1.0,
+            globalCompositeOperation: "source-over",
+            strokeStyle: "#000000",
+            fillStyle: "#000000",
 
-            // colors and styles
-            /*CanvasGradient createLinearGradient(in float x0, in float y0, in float x1, in float y1);
-            CanvasGradient createRadialGradient(in float x0, in float y0, in float r0, in float x1, in float y1, in float r1);
-            CanvasPattern createPattern(in HTMLImageElement image, in DOMString repetition);
-            CanvasPattern createPattern(in HTMLCanvasElement image, in DOMString repetition);*/
+            createLinearGradient: function () return {
+                addColorStop: function () {}
+            },
+            createRadialGradient: function () return {
+                addColorStop: function () {}
+            },
+            createPattern: function () return {},
 
             // line caps/joins
-            lineWidth: 0,
-            lineCap: null,
-            lineJoin: null,
-            miterLimit: null,
+            lineWidth: 1.0,
+            lineCap: "butt",
+            lineJoin: "miter",
+            miterLimit: 10.0,
 
             // shadows
             shadowOffsetX: 0,
@@ -210,56 +212,53 @@ class Director
             font: null,
             textAlign: null,
             textBaseline: null,
-            fillText: function (text :String, x :Float, y :Float) {},
-            strokeText: function (text :String, x :Float, y :Float) {},
-            measureText: function (text :String) {return {width:100}},
+            fillText: function () {},
+            strokeText: function () {},
+            measureText: function () return {width: 100},
 
             // rects
-            clearRect: function( x : Float, y : Float, w : Float, h : Float ) {},
-            fillRect: function( x : Float, y : Float, w : Float, h : Float ) {},
-            strokeRect: function( x : Float, y : Float, w : Float, h : Float ) {},
+            clearRect: function () {},
+            fillRect: function () {},
+            strokeRect: function () {},
 
             // path API
             beginPath: function() {},
             closePath: function() {},
-            moveTo: function( x : Float, y : Float ) {},
-            lineTo: function( x : Float, y : Float ) {},
-            quadraticCurveTo: function( cpx : Float, cpy : Float, x : Float, y : Float ) {},
-            bezierCurveTo: function( cp1x : Float, cp1y : Float, cp2x : Float, cp2y : Float, x : Float, y : Float ) {},
-            arcTo: function( x1 : Float, y1 : Float, x2 : Float, y2 : Float, radius : Float ) {},
-            rect: function( x : Float, y : Float, w : Float, h : Float ) {},
-            arc: function( x : Float, y : Float, radius : Float, startAngle : Float, endAngle : Float, anticlockwise : Bool ) {},
+            moveTo: function () {},
+            lineTo: function () {},
+            quadraticCurveTo: function () {},
+            bezierCurveTo: function () {},
+            arcTo: function () {},
+            rect: function () {},
+            arc: function () {},
             fill: function() {},
             stroke: function() {},
             clip: function() {},
-            isPointInPath: function( x : Float, y : Float ) {},
-
-            drawImage: function (image :Dynamic, dx :Float, dy :Float, ?a1 :Float, ?a2 :Float, ?a3 :Float, ?a4 :Float, ?a5 :Float, ?a6 :Float) {},
+            isPointInPath: function () {},
 
             // drawing images
-    /*	void drawImage(in HTMLImageElement image, in float dx, in float dy);
-            void drawImage(in HTMLImageElement image, in float dx, in float dy, in float dw, in float dh);
-            void drawImage(in HTMLImageElement image, in float sx, in float sy, in float sw, in float sh, in float dx, in float dy, in float dw, in float dh);
-            void drawImage(in HTMLCanvasElement image, in float dx, in float dy);
-            void drawImage(in HTMLCanvasElement image, in float dx, in float dy, in float dw, in float dh);
-            void drawImage(in HTMLCanvasElement image, in float sx, in float sy, in float sw, in float sh, in float dx, in float dy, in float dw, in float dh);*/
+            drawImage: function () {},
 
-            getImageData: function (sx :Int, sy :Int, sw :Int, sh :Int) {},
-            putImageData: function (imagedata :ImageData, dx :Float, dy :Float, ?dirtyX :Float, ?dirtyY :Float, ?dirtyWidth :Float, ?dirtyHeight :Float) {},
+            getImageData: function () {}, // TODO
+            putImageData: function () {},
         };
 
         var fpsTime :Float = 0;
         var fpsFrames :Int = 0;
 #end
-        var lastTime :Float = 0;
+        var timeLastBegin :Float = untyped __js__("new Date()").getTime();
 
         var tick = function () {
-            var now = untyped __js__("new Date()").getTime();
-            var elapsed = now - lastTime;
+            // Time at the beginning of this frame
+            var timeBegin :Float = untyped __js__("new Date()").getTime();
+
+            // Time elapsed since the beginning of the last frame
+            var elapsed :Float = timeBegin - timeLastBegin;
 
 #if debug
             if (!self.disableUpdates) {
 #end
+                // Update
                 self._current.update(elapsed);
 #if debug
             }
@@ -267,14 +266,11 @@ class Director
                 self._current.render(dummyContext);
             } else {
 #end
+                // Render
                 self._current.render(self.ctx);
 #if debug
             }
-#end
 
-            lastTime = now;
-
-#if debug
             fpsFrames += 1;
             fpsTime += elapsed;
             if (fpsTime > 1000) {
@@ -288,10 +284,12 @@ class Director
                 taskCount.innerHTML = (cast self._current)._tasks.length;
             }
 #end
-            untyped window.setTimeout(tick, 1000/30);
+            var timeEnd = untyped __js__("new Date()").getTime();
+            untyped window.setTimeout(tick, 1000/30 - timeEnd + timeBegin);
+
+            timeLastBegin = timeBegin;
         };
 
-        lastTime = Date.now().getTime();
         tick();
     }
 
