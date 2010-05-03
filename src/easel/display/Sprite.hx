@@ -39,8 +39,8 @@ class Sprite extends Entity
 
     public var parent (default, null) :Group;
 
-    public var width (getWidth, never) :Float;
-    public var height (getHeight, never) :Float;
+    public var width (getWidth, setWidth) :Float;
+    public var height (getHeight, setHeight) :Float;
 
     public inline var cacheAsBitmap (isCacheAsBitmap, setCacheAsBitmap) :Bool;
 
@@ -154,9 +154,23 @@ class Sprite extends Entity
         return shadowBlur;
     }
 
+    public inline function setWidth (width :Float) :Float
+    {
+        boundingBox[2] = width;
+        dirtyContents();
+        return width;
+    }
+
     public inline function getWidth ()
     {
         return boundingBox[2];
+    }
+
+    public inline function setHeight (height :Float) :Float
+    {
+        boundingBox[3] = height;
+        dirtyContents();
+        return height;
     }
 
     public inline function getHeight ()
