@@ -71,7 +71,6 @@ class TextSprite extends Sprite
     override public function packBounds ()
     {
         var ctx = ScratchCanvas.ctx;
-        ScratchCanvas.canvas = null;
         ctx.font = font;
         boundingBox[2] = ctx.measureText(text).width;
 
