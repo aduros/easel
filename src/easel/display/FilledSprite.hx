@@ -4,6 +4,7 @@ class FilledSprite extends Sprite
 {
     public var fillStyle (default, setFillStyle) :Dynamic;
     public var strokeStyle (default, setStrokeStyle) :Dynamic;
+    public var lineWidth (default, setLineWidth) :Float;
 
     public function new (fillStyle :Dynamic, ?width = 0, ?height = 0)
     {
@@ -11,6 +12,7 @@ class FilledSprite extends Sprite
         this.width = width;
         this.height = height;
         this.fillStyle = fillStyle;
+        this.lineWidth = 1;
     }
 
     public inline function setFillStyle (fillStyle :Dynamic)
@@ -27,6 +29,13 @@ class FilledSprite extends Sprite
         return strokeStyle;
     }
 
+    public inline function setLineWidth (lineWidth :Float)
+    {
+        this.lineWidth = lineWidth;
+        dirtyContents();
+        return lineWidth;
+    }
+
     override public function draw (ctx :Context2d)
     {
         var w = (width > 0) ? width : ctx.canvas.width;
@@ -40,6 +49,7 @@ class FilledSprite extends Sprite
 //        ctx.rect(0,0,w,h);
         if (strokeStyle != null) {
             ctx.strokeStyle = strokeStyle;
+            ctx.lineWidth = lineWidth;
             ctx.strokeRect(0, 0, w, h);
         }
     }
