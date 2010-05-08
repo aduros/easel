@@ -23,6 +23,8 @@ class Director
     public function new (canvas :Canvas)
     {
         ctx = canvas.getContext("2d");
+//        untyped canvas.oncontextmenu = function () return false;
+
 #if debug
         disableRendering = false;
         disableUpdates = false;
@@ -46,6 +48,21 @@ class Director
     private function onMouseMove (event)
     {
         _current.onMouseMove.emit(event);
+    }
+
+    private function onMouseDown (event)
+    {
+        _current.onMouseDown.emit(event);
+    }
+
+    private function onMouseUp (event)
+    {
+        _current.onMouseUp.emit(event);
+    }
+
+    private function onMouseOut (event)
+    {
+        _current.onMouseOut.emit(event);
     }
 
     private function onKeyDown (event)
@@ -144,6 +161,9 @@ class Director
         (untyped js.Lib.document.addEventListener)("keydown", onKeyDown, false);
         (untyped ctx.canvas.addEventListener)("click", onClick, false);
         (untyped ctx.canvas.addEventListener)("mousemove", onMouseMove, false);
+        (untyped ctx.canvas.addEventListener)("mousedown", onMouseDown, false);
+        (untyped ctx.canvas.addEventListener)("mouseup", onMouseUp, false);
+        (untyped ctx.canvas.addEventListener)("mouseout", onMouseOut, false);
 
         replaceScene(firstScene);
 

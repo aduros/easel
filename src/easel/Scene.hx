@@ -16,6 +16,9 @@ class Scene
     public var onClick :Signal<Event>;
     public var onKeyDown :Signal<Event>;
     public var onMouseMove :Signal<Event>;
+    public var onMouseDown :Signal<Event>;
+    public var onMouseUp :Signal<Event>;
+    public var onMouseOut :Signal<Event>;
     public var onUpdate :Signal<Float>;
     public var onShow :Signal<Void>;
     public var onHide :Signal<Void>;
@@ -37,6 +40,9 @@ class Scene
         onClick = new Signal();
         onKeyDown = new Signal();
         onMouseMove = new Signal();
+        onMouseDown = new Signal();
+        onMouseUp = new Signal();
+        onMouseOut = new Signal();
         // WARNING: Will blow up if root is packBounds()'d
         //_root.boundingBox = cast [ 0, 0, ctx.canvas.width, ctx.canvas.height ];
     }
