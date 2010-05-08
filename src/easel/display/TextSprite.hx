@@ -14,57 +14,55 @@ class TextSprite extends Sprite
     {
         this.text = text;
         dirtyContents();
-        return text;
+        return this.text;
     }
 
     public inline function setAlign (align :String)
     {
         this.align = align;
         dirtyContents();
-        return align;
+        return this.align;
     }
 
     public inline function setFont (font :String)
     {
         this.font = font;
         dirtyContents();
-        return font;
+        return this.font;
     }
 
     public inline function setBaseline (baseline :String)
     {
         this.baseline = baseline;
         dirtyContents();
-        return baseline;
+        return this.baseline;
     }
 
     public inline function setFillStyle (fillStyle :Dynamic)
     {
         this.fillStyle = fillStyle;
         dirtyContents();
-        return fillStyle;
+        return this.fillStyle;
     }
 
     public inline function setStrokeStyle (strokeStyle :Dynamic)
     {
         this.strokeStyle = strokeStyle;
         dirtyContents();
-        return strokeStyle;
+        return this.strokeStyle;
     }
 
     public inline function setMaxWidth (maxWidth :Float)
     {
         this.maxWidth = maxWidth;
         dirtyContents();
-        return maxWidth;
+        return this.maxWidth;
     }
 
     public function new (?text :String = "")
     {
         super();
         this.text = text;
-//        this.align = "start";
-//        this.baseline = "alphabetic";
         this.font = "12px serif";
     }
 

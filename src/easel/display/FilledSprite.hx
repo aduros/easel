@@ -19,21 +19,21 @@ class FilledSprite extends Sprite
     {
         this.fillStyle = fillStyle;
         dirtyContents();
-        return fillStyle;
+        return this.fillStyle;
     }
 
     public inline function setStrokeStyle (strokeStyle :Dynamic)
     {
         this.strokeStyle = strokeStyle;
         dirtyContents();
-        return strokeStyle;
+        return this.strokeStyle;
     }
 
     public inline function setLineWidth (lineWidth :Float)
     {
         this.lineWidth = lineWidth;
         dirtyContents();
-        return lineWidth;
+        return this.lineWidth;
     }
 
     override public function draw (ctx :Context2d)

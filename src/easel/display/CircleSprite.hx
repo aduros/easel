@@ -10,21 +10,21 @@ class CircleSprite extends Sprite
     {
         this.strokeStyle = strokeStyle;
         dirtyContents();
-        return strokeStyle;
+        return this.strokeStyle;
     }
 
     public inline function setFillStyle (fillStyle :Dynamic)
     {
         this.fillStyle = fillStyle;
         dirtyContents();
-        return fillStyle;
+        return this.fillStyle;
     }
 
     public inline function setRadius (radius :Dynamic)
     {
         this.radius = radius;
         dirtyContents();
-        return radius;
+        return this.radius;
     }
 
     public function new (radius :Float)

@@ -31,7 +31,8 @@ class ImageSprite extends Sprite
     public inline function setFrame (frame :Int)
     {
         this.frame = frame;
-        return frame;
+        dirtyContents();
+        return this.frame;
     }
 
     public inline function getNumFrames ()

@@ -74,91 +74,91 @@ class Sprite extends Entity
     {
         this.x = x;
         dirtyTransform();
-        return x;
+        return this.x;
     }
 
     public inline function setY (y :Float) :Float
     {
         this.y = y;
         dirtyTransform();
-        return y;
+        return this.y;
     }
 
     public inline function setCenterX (centerX :Float) :Float
     {
         this.centerX = centerX;
         dirtyTransform();
-        return centerX;
+        return this.centerX;
     }
 
     public inline function setCenterY (centerY :Float) :Float
     {
         this.centerY = centerY;
         dirtyTransform();
-        return centerY;
+        return this.centerY;
     }
 
     public inline function setScaleX (scaleX :Float) :Float
     {
         this.scaleX = scaleX;
         dirtyTransform();
-        return scaleX;
+        return this.scaleX;
     }
 
     public inline function setScaleY (scaleY :Float) :Float
     {
         this.scaleY = scaleY;
         dirtyTransform();
-        return scaleY;
+        return this.scaleY;
     }
 
     public inline function setRotation (rotation :Float) :Float
     {
         this.rotation = rotation;
         dirtyTransform();
-        return rotation;
+        return this.rotation;
     }
 
     public inline function setMask (mask :Sprite) :Sprite
     {
         this.mask = mask;
         dirtyContents();
-        return mask;
+        return this.mask;
     }
 
     public inline function setShadowColor (shadowColor :String) :String
     {
         this.shadowColor = shadowColor;
         dirtyContents();
-        return shadowColor;
+        return this.shadowColor;
     }
 
     public inline function setShadowOffsetX (shadowOffsetX :Float) :Float
     {
         this.shadowOffsetX = shadowOffsetX;
         dirtyContents();
-        return shadowOffsetX;
+        return this.shadowOffsetX;
     }
 
     public inline function setShadowOffsetY (shadowOffsetY :Float) :Float
     {
         this.shadowOffsetY = shadowOffsetY;
         dirtyContents();
-        return shadowOffsetY;
+        return this.shadowOffsetY;
     }
 
     public inline function setShadowBlur (shadowBlur :Float) :Float
     {
         this.shadowBlur = shadowBlur;
         dirtyContents();
-        return shadowBlur;
+        return this.shadowBlur;
     }
 
     public inline function setWidth (width :Float) :Float
     {
         boundingBox[2] = width;
         dirtyContents();
-        return width;
+        return this.width;
     }
 
     public inline function getWidth ()
@@ -170,7 +170,7 @@ class Sprite extends Entity
     {
         boundingBox[3] = height;
         dirtyContents();
-        return height;
+        return this.height;
     }
 
     public inline function getHeight ()
