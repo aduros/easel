@@ -63,6 +63,13 @@ class Group extends Sprite
         return _children.length;
     }
 
+    public function setChildIndex (sprite :Sprite, index :Int)
+    {
+        if (_children.remove(sprite)) {
+            _children.insert(index, sprite);
+        }
+    }
+
     public function removeAll ()
     {
         for (sprite in _children) {
