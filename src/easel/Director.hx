@@ -186,6 +186,8 @@ class Director
 
         var taskCount = js.Lib.document.getElementById("easel:tasks");
 
+        var renderTimeLabel = js.Lib.document.getElementById("easel:renderTime");
+
         // A fake context for when rendering is disabled, for profiling
         var dummyContext :Context2d = null;
         dummyContext = cast {
@@ -265,6 +267,7 @@ class Director
 
         var fpsTime :Float = 0;
         var fpsFrames :Int = 0;
+        var renderTime :Float = 0;
 #end
         var timeLastBegin :Float = untyped __js__("new Date()").getTime();
 
@@ -282,6 +285,7 @@ class Director
                 self._current.update(elapsed);
 #if debug
             }
+            timeLastBegin = timeBegin;
             if (self.disableRendering) {
                 self._current.render(dummyContext);
             } else {
@@ -290,6 +294,7 @@ class Director
                 self._current.render(self.ctx);
 #if debug
             }
+            renderTime += untyped __js__("new Date()").getTime() - timeLastBegin;
 
             fpsFrames += 1;
             fpsTime += elapsed;
@@ -297,17 +302,22 @@ class Director
                 var fps = Math.round(100*1000*fpsFrames/fpsTime)/100;
                 self.onFps.emit(fps);
 
+                if (renderTimeLabel != null) {
+                    renderTimeLabel.innerHTML = ""+renderTime;
+                }
+
                 fpsTime = 0;
                 fpsFrames = 0;
+                renderTime = 0;
             }
             if (taskCount != null) {
                 taskCount.innerHTML = (cast self._current)._tasks.length;
             }
 #end
+            timeLastBegin = timeBegin;
+
             var timeEnd = untyped __js__("new Date()").getTime();
             untyped window.setTimeout(tick, 1000/30 - timeEnd + timeBegin);
-
-            timeLastBegin = timeBegin;
         };
 
         tick();
