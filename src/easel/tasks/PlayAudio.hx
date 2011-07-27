@@ -1,3 +1,7 @@
+//
+// Easel - HTML5 canvas game engine
+// https://github.com/aduros/easel/blob/master/LICENSE.txt
+
 package easel.tasks;
 
 import easel.media.AudioManager;

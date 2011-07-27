@@ -1,3 +1,7 @@
+//
+// Easel - HTML5 canvas game engine
+// https://github.com/aduros/easel/blob/master/LICENSE.txt
+
 import js.Lib;
 import js.Dom;
 
